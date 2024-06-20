@@ -60,7 +60,7 @@
     <div class="container">
         <h1>Cek Khodam Online</h1>
         <div class="input-group">
-            <label for="nama">Nama Anda:</label>
+            <label for="nama">Masukkan Nama Lengkap Anda:</label>
             <input type="text" id="nama" name="nama">
         </div>
         <button onclick="cekKhodam()">Cek Khodam</button>
@@ -76,13 +76,13 @@
             var nama = document.getElementById('nama').value.trim();
             
             if (nama === "") {
-                alert("Silakan masukkan nama Anda.");
+                alert("Masukkan Nama Lengkap Anda.");
                 return;
             }
 
             // List binatang dan daerah
             var binatang = [
-                "Harimau", "Kucing", "Anjing", "Elang", "Singa", "Ular", "Burung", "Serigala", "Kadal", "Gajah",
+                "Harimau", "Kucing", "Anjing", "Kadal", "Singa", "Ular", "Burung", "Serigala", "Kadal", "Gajah",
                 "Tikus", "Kelelawar", "Kangguru", "Koala", "Ikan Piranha", "Gorila", "Laba-laba", "Kupu-kupu", "Semut", "Lalat",
                 "Kumbang", "Bekicot", "Cicak", "Buaya", "Kodok", "Bunglon", "Katak", "Kepik", "Capung", "Belalang",
                 "Kalajengking", "Kupu-kupu", "Belut", "Kelinci", "Tupai", "Monyet", "Simpanse", "Dugong", "Iguana", "Orangutan",

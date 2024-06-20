@@ -5,54 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cek Khodam Online</title>
     <style>
-        html, body {
-            height: 100%;
+        /* CSS reset dan gaya umum */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url('https://raw.githubusercontent.com/tmcakunthea/github.musik.io/main/images%20(2).jpeg') no-repeat center center fixed;
-            background-size: cover;
+            height: 100vh;
+            margin: 0;
         }
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
         }
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
         .input-group {
-            margin-bottom: 15px;
-            position: relative;
+            margin-bottom: 20px;
+            text-align: left;
         }
         .input-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            color: #555;
         }
         .input-group input {
-            width: 100%;
-            padding: 8px;
+            width: calc(100% - 16px);
+            padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
         }
-        .result {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #333;
-            position: relative;
+        .input-group input:focus {
+            border-color: #6f6f6f;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
         }
         .watermark {
-            margin-top: 20px; /* 1 cm di bawah */
-            text-align: center;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #888;
         }
         .watermark a {
+            color: #888;
             text-decoration: none;
-            color: #333;
+        }
+        .watermark a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -80,7 +109,6 @@
                 return;
             }
 
-            // List binatang dan daerah
             var binatang = [
                 "Harimau", "Kucing", "Anjing", "Kadal", "Singa", "Ular", "Burung", "Serigala", "Kadal", "Gajah",
                 "Tikus", "Kelelawar", "Kangguru", "Koala", "Ikan Piranha", "Gorila", "Laba-laba", "Kupu-kupu", "Semut", "Lalat",
@@ -97,23 +125,18 @@
                 "Jombang", "Lamongan", "Gresik", "Probolinggo", "Pasuruan", "Banyuwangi", "Bondowoso", "Situbondo", "Jember", "Lumajang"
             ];
 
-            // Pilih binatang dan daerah secara acak
             var binatangTerpilih = binatang[Math.floor(Math.random() * binatang.length)];
             var daerahTerpilih = daerah[Math.floor(Math.random() * daerah.length)];
 
-            // Hasil khodam
             var khodamResult = binatangTerpilih + " " + daerahTerpilih;
 
-            // Simpan posisi audio ke Local Storage
             var audioElement = document.getElementById('background-audio');
             localStorage.setItem('audioPosition', audioElement.currentTime);
             localStorage.setItem('isPlaying', !audioElement.paused);
 
-            // Redirect ke halaman hasil
             window.location.href = "hasil.html?nama=" + encodeURIComponent(nama) + "&khodam=" + encodeURIComponent(khodamResult);
         }
 
-        // Set posisi audio dari Local Storage
         window.onload = function() {
             var audioElement = document.getElementById('background-audio');
             var audioPosition = localStorage.getItem('audioPosition');

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Cek Khodam</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://raw.githubusercontent.com/tmcakunthea/github.musik.io/main/images%20(2).jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+            position: relative;
+        }
+        .khodam {
+            font-size: 1.5em;
+            color: #ff5733; /* Warna berbeda untuk khodam */
+            text-transform: uppercase;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .watermark {
+            margin-top: 20px; /* 1 cm di bawah */
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+        }
+        .watermark a {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hasil Cek Khodam</h1>
+        <div class="result" id="result"></div>
+        <button class="back-button" onclick="window.history.back()">Kembali</button>
+        <div class="watermark">
+            <a href="https://www.instagram.com/tmctomystudio" target="_blank">© 2024 tMC Tomy Studio</a>
+        </div>
+    </div>
+
+    <audio id="background-audio" src="https://tmcakunthea.github.io/github.musik.io/musikkidung.mp3" autoplay loop></audio>
+
+    <script>
+        function getQueryParams() {
+            var params = {};
+            var queryString = window.location.search.substring(1);
+            var regex = /([^&=]+)=([^&]*)/g;
+            var m;
+            while (m = regex.exec(queryString)) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            }
+            return params;
+        }
+
+        window.onload = function() {
+            var params = getQueryParams();
+            var nama = params['nama'];
+            var khodam = params['khodam'];
+            var resultDiv = document.getElementById('result');
+
+            if (nama && khodam) {
+                resultDiv.innerHTML = "Selamat " + nama + ", Anda memiliki khodam berupa <span class='khodam'>" + khodam + "</span>!";
+            } else {
+                resultDiv.textContent = "Data tidak valid. Silakan kembali ke halaman sebelumnya.";
+            }
+
+            // Set posisi audio dari Local Storage
+            var audioElement = document.getElementById('background-audio');
+            var audioPosition = localStorage.getItem('audioPosition');
+            var isPlaying = localStorage.getItem('isPlaying') === 'true';
+
+            if (audioPosition) {
+                audioElement.currentTime = parseFloat(audioPosition);
+            }
+            if (isPlaying) {
+                audioElement.play();
+            }
+        };
+
+        // Update posisi audio ke Local Storage saat waktu berjalan
+        var audioElement = document.getElementById('background-audio');
+        audioElement.ontimeupdate = function() {
+            localStorage.setItem('audioPosition', audioElement.currentTime);
+        };
+    </script>
+</body>
+</html>

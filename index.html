@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Khodam Online</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://raw.githubusercontent.com/tmcakunthea/github.musik.io/main/images%20(2).jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+            position: relative;
+        }
+        .watermark {
+            margin-top: 20px; /* 1 cm di bawah */
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+        }
+        .watermark a {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cek Khodam Online</h1>
+        <div class="input-group">
+            <label for="nama">Nama Anda:</label>
+            <input type="text" id="nama" name="nama">
+        </div>
+        <button onclick="cekKhodam()">Cek Khodam</button>
+        <div class="watermark">
+            <a href="https://www.instagram.com/tmctomystudio" target="_blank">© 2024 tMC Tomy Studio</a>
+        </div>
+    </div>
+
+    <audio id="background-audio" src="https://tmcakunthea.github.io/github.musik.io/musikkidung.mp3" autoplay loop></audio>
+
+    <script>
+        function cekKhodam() {
+            var nama = document.getElementById('nama').value.trim();
+            
+            if (nama === "") {
+                alert("Silakan masukkan nama Anda.");
+                return;
+            }
+
+            // List binatang dan daerah
+            var binatang = [
+                "Harimau", "Kucing", "Anjing", "Elang", "Singa", "Ular", "Burung", "Serigala", "Kadal", "Gajah",
+                "Tikus", "Kelelawar", "Kangguru", "Koala", "Ikan Piranha", "Gorila", "Laba-laba", "Kupu-kupu", "Semut", "Lalat",
+                "Kumbang", "Bekicot", "Cicak", "Buaya", "Kodok", "Bunglon", "Katak", "Kepik", "Capung", "Belalang",
+                "Kalajengking", "Kupu-kupu", "Belut", "Kelinci", "Tupai", "Monyet", "Simpanse", "Dugong", "Iguana", "Orangutan",
+                "Kuda Nil", "Zebra", "Badak", "Hiu", "Pari", "Babi Hutan", "Rusa", "Landak", "Platipus", "Bunglon"
+            ];
+
+            var daerah = [
+                "Sumatra", "Jawa", "Kalimantan", "Sulawesi", "Papua", "Bali", "Nusa Tenggara", "Maluku", "Aceh", "Banten",
+                "Lombok", "Timor", "Bangka", "Belitung", "Madura", "Mentawai", "Simeulue", "Bintan", "Lingga", "Karimun",
+                "Kepulauan Seribu", "Natuna", "Batam", "Tanjungpinang", "Bawean", "Karimunjawa", "Alor", "Flores", "Sumba", "Sumbawa",
+                "Timor Leste", "Kupang", "Rote", "Sabu", "Madura", "Rembang", "Blora", "Pacitan", "Trenggalek", "Kediri",
+                "Jombang", "Lamongan", "Gresik", "Probolinggo", "Pasuruan", "Banyuwangi", "Bondowoso", "Situbondo", "Jember", "Lumajang"
+            ];
+
+            // Pilih binatang dan daerah secara acak
+            var binatangTerpilih = binatang[Math.floor(Math.random() * binatang.length)];
+            var daerahTerpilih = daerah[Math.floor(Math.random() * daerah.length)];
+
+            // Hasil khodam
+            var khodamResult = binatangTerpilih + " " + daerahTerpilih;
+
+            // Simpan posisi audio ke Local Storage
+            var audioElement = document.getElementById('background-audio');
+            localStorage.setItem('audioPosition', audioElement.currentTime);
+            localStorage.setItem('isPlaying', !audioElement.paused);
+
+            // Redirect ke halaman hasil
+            window.location.href = "hasil.html?nama=" + encodeURIComponent(nama) + "&khodam=" + encodeURIComponent(khodamResult);
+        }
+
+        // Set posisi audio dari Local Storage
+        window.onload = function() {
+            var audioElement = document.getElementById('background-audio');
+            var audioPosition = localStorage.getItem('audioPosition');
+            var isPlaying = localStorage.getItem('isPlaying') === 'true';
+
+            if (audioPosition) {
+                audioElement.currentTime = parseFloat(audioPosition);
+            }
+            if (isPlaying) {
+                audioElement.play();
+            }
+        };
+    </script>
+</body>
+</html>
